@@ -1,0 +1,70 @@
+# === DATA SCIENCE & ARCHIVES ===
+# Αγνοούμε όλα τα αρχεία δεδομένων (Raw & Processed)
+*.csv
+*.xlsx
+*.xls
+*.json
+*.sql
+*.sqlite
+*.zip
+*.tar.gz
+
+# === PYTHON SPECIFICS ===
+# Προσωρινά αρχεία που δημιουργεί η Python κατά την εκτέλεση
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# === VIRTUAL ENVIRONMENTS ===
+# Ποτέ δεν ανεβάζουμε τις βιβλιοθήκες, μόνο το requirements.txt
+venv/
+.venv/
+ENV/
+env/
+ENV/
+
+# === JUPYTER NOTEBOOKS ===
+# Temporary αρχεία των Notebooks
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+# Αν θέλεις να ανεβάζεις μόνο τα .ipynb αλλά όχι τα logs τους
+# .virtual_documents/
+
+# === MACHINE LEARNING MODELS ===
+# Αποθηκευμένα μοντέλα (συνήθως είναι πολύ μεγάλα)
+*.pkl
+*.joblib
+*.h5
+*.model
+*.pb
+
+# === VS CODE & IDEs ===
+# Ρυθμίσεις του editor που είναι προσωπικές σου
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === OPERATING SYSTEM (WINDOWS/MAC) ===
+# Σκουπίδια του συστήματος
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+.DS_Store
