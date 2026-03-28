@@ -1,5 +1,5 @@
 # === DATA SCIENCE & ARCHIVES ===
-# Αγνοούμε όλα τα αρχεία δεδομένων (Raw & Processed)
+# 1. Αγνοούμε όλα τα αρχεία δεδομένων γενικά
 *.csv
 *.xlsx
 *.xls
@@ -9,8 +9,10 @@
 *.zip
 *.tar.gz
 
+# 2. ΕΞΑΙΡΕΣΗ: Θέλουμε να φαίνονται ΜΟΝΟ τα καθαρά CSV από τον φάκελο processed
+!data/processed/*.csv
+
 # === PYTHON SPECIFICS ===
-# Προσωρινά αρχεία που δημιουργεί η Python κατά την εκτέλεση
 __pycache__/
 *.py[cod]
 *$py.class
@@ -33,22 +35,16 @@ wheels/
 *.egg
 
 # === VIRTUAL ENVIRONMENTS ===
-# Ποτέ δεν ανεβάζουμε τις βιβλιοθήκες, μόνο το requirements.txt
 venv/
 .venv/
 ENV/
 env/
-ENV/
 
 # === JUPYTER NOTEBOOKS ===
-# Temporary αρχεία των Notebooks
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
-# Αν θέλεις να ανεβάζεις μόνο τα .ipynb αλλά όχι τα logs τους
-# .virtual_documents/
 
 # === MACHINE LEARNING MODELS ===
-# Αποθηκευμένα μοντέλα (συνήθως είναι πολύ μεγάλα)
 *.pkl
 *.joblib
 *.h5
@@ -56,14 +52,12 @@ ENV/
 *.pb
 
 # === VS CODE & IDEs ===
-# Ρυθμίσεις του editor που είναι προσωπικές σου
 .vscode/
 .idea/
 *.swp
 *.swo
 
 # === OPERATING SYSTEM (WINDOWS/MAC) ===
-# Σκουπίδια του συστήματος
 Thumbs.db
 desktop.ini
 $RECYCLE.BIN/
