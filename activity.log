@@ -1,0 +1,25 @@
+# Ημερολόγιο Εργασίας: Πτυχιακή Μελέτη
+**Project:** Car-Market-Analysis-Attica
+**Ημερομηνία:** 31 Μαρτίου 2026
+
+##  Συλλογή Βιβλιογραφίας & Πηγών
+Σήμερα πραγματοποιήθηκε εκτενής αναζήτηση και συγκέντρωση πηγών για το θεωρητικό μέρος και την υλοποίηση του μοντέλου.
+
+###  Επιστημονικά Άρθρα & Μελέτες
+- [ ] **Global Automotive Consumer Study (2026)** - Deloitte / Industry report για τις τάσεις της αγοράς.
+- [ ] **Probabilistic Tabular Regression for Used Car Price Prediction** - Τεχνική προσέγγιση στην πρόβλεψη τιμών.
+- [ ] **An Analytical Study on Car Price Prediction** - Μελέτη αλγορίθμων πρόβλεψης.
+- [ ] **Sustainability-14-17034** & **Electronics-11-02932** - MDPI Journals σχετικά με βιωσιμότητα και ηλεκτρονικά συστήματα αυτοκινήτων.
+- [ ] **AngelakakiEleniMsc2025** - Συναφής μεταπτυχιακή διατριβή για βιβλιογραφική αναφορά.
+
+###  Τεχνικά Εγχειρίδια & Βιβλία (Python & ML)
+- [x] **Python Data Science Handbook** (Jake VanderPlas) - Για manipulation δεδομένων.
+- [x] **ISLP (Introduction to Statistical Learning with Python)** - Θεωρητικό υπόβαθρο στατιστικής μάθησης.
+- [x] **Data Ingestion with Python Cookbook** - Για τη διαδικασία συλλογής δεδομένων (Scraping/API).
+- [x] **Introduction to Machine Learning with Python** - Βασικές αρχές Scikit-Learn.
+- [x] **Python Crash Course (Matthes 2023)** - Αναφορά για δομές κώδικα.
+
+##  Επόμενα Βήματα
+1. Ταξινόμηση των PDFs στον κατάλληλο φάκελο του project (π.χ. `docs/references/`).
+2. Σύνταξη της πρώτης προσχεδιασμένης λίστας βιβλιογραφίας (BibTeX).
+3. Ανάλυση του "Global Automotive Consumer Study" για την εισαγωγή της πτυχιακής.
