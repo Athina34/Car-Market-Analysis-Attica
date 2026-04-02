@@ -4,6 +4,5 @@ matplotlib
 seaborn
 scikit-learn
 xgboost
-streamlit
 shap
-prophet
+streamlit
