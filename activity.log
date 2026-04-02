@@ -23,3 +23,27 @@
 1. Ταξινόμηση των PDFs στον κατάλληλο φάκελο του project (π.χ. `docs/references/`).
 2. Σύνταξη της πρώτης προσχεδιασμένης λίστας βιβλιογραφίας (BibTeX).
 3. Ανάλυση του "Global Automotive Consumer Study" για την εισαγωγή της πτυχιακής.
+
+---
+
+# Ημερολόγιο Εργασίας: Πτυχιακή Μελέτη
+**Project:** Car-Market-Analysis-Attica
+**Ημερομηνία:** 2 Απριλίου 2026
+
+## Σημερινή Πρόοδος
+- Ολοκληρώθηκε το `01_Data_Cleaning_EDA.ipynb`
+- Ολοκληρώθηκε το `02_Modeling_Price_Prediction.ipynb`
+- Συγκρίθηκαν baseline και tree-based μοντέλα
+- Το XGBoost είχε την καλύτερη συνολική απόδοση
+- Δημιουργήθηκαν τα αρχεία:
+  - `data/processed/model_comparison_results.csv`
+  - `data/processed/best_model_test_predictions.csv`
+- Προστέθηκε το `CONTRIBUTING.md`
+- Ενημερώθηκε το `README.md`
+
+## Επόμενα Βήματα
+- Δημιουργία του `03_Model_Evaluation_Interpretability.ipynb`
+- Hyperparameter tuning
+- Error analysis
+- SHAP / interpretability
+- Τελική επιλογή μοντέλου για την πτυχιακή
