@@ -4,41 +4,48 @@
 
 This repository contains the implementation of a thesis project focused on the **used car market in Attica, Greece**, covering the period **2021–2026**. The main objective is to analyze the factors that influence used car prices and to develop a **machine learning model for price prediction**.
 
-The project follows a reproducible data science workflow in Python, combining:
+The project follows a **reproducible data science workflow** in Python, combining:
 
+- data collection and organization
 - data cleaning and validation
 - exploratory data analysis (EDA)
 - feature engineering
 - predictive modeling
-- model evaluation and interpretation
+- model evaluation and interpretability
 
 ---
 
 ## Thesis Objective
 
-The central goal of the study is to investigate the determinants of used car prices in Attica and to build a reliable predictive model based on vehicle and market characteristics.
+The central goal of this study is to investigate the determinants of used car prices in Attica and to build a reliable predictive model based on vehicle and market characteristics.
 
-More specifically, the project examines the role of variables such as:
+More specifically, the project examines the effect of variables such as:
 
 - **Technical characteristics**: engine displacement, horsepower, fuel type, transmission
 - **Usage-related variables**: mileage, age, registration year
-- **Market characteristics**: manufacturer, model, body type, listing features
+- **Market characteristics**: manufacturer, model, listing structure
 - **Geographical information**: regional variation within Attica
 
 ---
 
 ## Project Status
 
-The project currently includes the following completed stages:
+The repository currently includes the following completed stages:
 
-- **Notebook 1:** data cleaning review and exploratory data analysis
-- **Notebook 2:** predictive modeling and model comparison
+- **Notebook 1:** Data Cleaning & Exploratory Data Analysis
+- **Notebook 2:** Modeling & Price Prediction
+- **Notebook 3:** Model Evaluation, Hyperparameter Tuning, Error Analysis & Interpretability
 - creation of cleaned and model-ready datasets
-- export of model evaluation outputs in `data/processed/`
+- export of processed analytical outputs in `data/processed/`
 
-The next planned stage is:
+At the current stage, the project includes:
 
-- **Notebook 3:** model evaluation, hyperparameter tuning, error analysis, and interpretability
+- a cleaned analytical dataset
+- a structured ML-ready dataset
+- baseline and tree-based model comparison
+- final-model prediction exports
+- post-model evaluation outputs
+- SHAP-based interpretability outputs
 
 ---
 
@@ -51,7 +58,8 @@ The project is structured around the following goals:
 3. Explore market patterns through descriptive statistics and visualizations.
 4. Identify the variables most strongly associated with price.
 5. Develop and evaluate machine learning models for price prediction.
-6. Document the full workflow in a reproducible and academically structured way.
+6. Interpret the final model in an academically meaningful way.
+7. Document the full workflow in a reproducible and well-structured repository.
 
 ---
 
@@ -61,7 +69,8 @@ The project is based on vehicle listings from the Attica region.
 
 - The **initial raw dataset** contained more than **12,000 listings**.
 - After cleaning and preparation, the **cleaned analytical dataset** contains **8,933 observations**.
-- A separate **model-ready dataset** was created for the predictive modeling stage.
+- A separate **ML-ready dataset** was created for predictive modeling.
+- The main modeling stage focuses on the **used-car subset**, which contains **8,296 observations**.
 
 ### Main Variables
 
@@ -70,11 +79,12 @@ Key variables used in the analysis include:
 - `Κατασκευαστής` / Make
 - `Τύπος` / Model
 - `Εγγραφή` / Registration year
+- `Ηλικία` / Vehicle age
 - `Καύσιμο` / Fuel type
-- `Χιλιόμετρα` / Mileage
+- `Μετάδοση` / Transmission
 - `Κυβικά` / Engine displacement
 - `Ιπποδύναμη` / Horsepower
-- `Μετάδοση` / Transmission
+- `Χιλιόμετρα` / Mileage
 - `Περιοχή` / Region
 - `Τιμή` / Price (**target variable**)
 
@@ -85,9 +95,10 @@ The initial version of the dataset was organized in spreadsheet form and then pr
 - standardization of column names
 - missing value inspection
 - duplicate checks
-- data type correction
+- numeric parsing and type correction
 - category normalization
-- creation of cleaned and model-ready datasets
+- derived feature creation
+- creation of cleaned and ML-ready datasets
 
 ---
 
@@ -101,8 +112,9 @@ The methodological workflow of the project consists of the following stages:
 
 ### 2. Data Cleaning and Preprocessing
 - Handling missing values and inconsistent records
-- Duplicate detection and review
+- Duplicate detection and conservative duplicate removal
 - Standardization of categories and formats
+- Numeric value parsing and cleaning
 - Data quality checks
 - Preparation of cleaned datasets for analysis and modeling
 
@@ -114,7 +126,7 @@ The methodological workflow of the project consists of the following stages:
 
 ### 4. Feature Engineering
 - Selection of relevant predictors
-- Transformation of variables where needed
+- Creation of derived variables such as vehicle age
 - Encoding of categorical variables
 - Construction of model-ready input tables
 
@@ -127,77 +139,83 @@ The project evaluates machine learning models for used car price estimation, inc
 - Random Forest
 - XGBoost
 
-### 6. Model Evaluation
-Models are assessed using standard regression metrics:
+### 6. Model Evaluation and Interpretability
+Models are assessed using standard regression metrics such as:
 
 - **MAE** (Mean Absolute Error)
 - **RMSE** (Root Mean Squared Error)
 - **R² Score**
 
-Residual analysis and model comparison are also used to support the final model selection.
+In the final evaluation stage, the analysis also includes:
+
+- hyperparameter tuning
+- tuned vs untuned comparison
+- detailed error analysis
+- residual diagnostics
+- grouped error analysis by market segment
+- SHAP-based interpretability
 
 ---
 
-## Current Modeling Results
+## Current Modeling Summary
 
-In the first completed modeling stage, multiple regression models were compared on the test set.
+In the main modeling stage, multiple regression models were compared on the test set.
 
-The best overall performance was achieved by **XGBoost**, while **Random Forest** also showed strong predictive performance.
+The strongest overall predictive performance was achieved by **XGBoost**, while **Random Forest** also showed strong results. The repository now includes both the original modeling outputs and the extended evaluation outputs produced in the third notebook.
 
-Exported results currently include:
+Core exported files include:
 
+- `data/processed/cleaned_car_data.csv`
+- `data/processed/ml_ready_car_data.csv`
 - `data/processed/model_comparison_results.csv`
 - `data/processed/best_model_test_predictions.csv`
 
-These files support the reproducibility of the modeling stage and can be used in subsequent analysis and reporting.
+Additional evaluation outputs from Notebook 3 include:
+
+- `data/processed/notebook3_search_summary.csv`
+- `data/processed/notebook3_model_test_results.csv`
+- `data/processed/notebook3_tuned_vs_untuned_comparison.csv`
+- `data/processed/notebook3_final_model_predictions.csv`
+- `data/processed/notebook3_error_by_fuel_type.csv`
+- `data/processed/notebook3_error_by_make.csv`
+- `data/processed/notebook3_error_by_registration_year.csv`
+- `data/processed/notebook3_error_by_price_segment.csv`
+- `data/processed/notebook3_transformed_shap_importance.csv`
+- `data/processed/notebook3_grouped_shap_importance.csv`
+
+These files support the reproducibility of the analysis and can be used directly in thesis writing, tables, appendices, and presentation material.
 
 ---
 
-## Technologies and Tools
+## Reproducibility
 
-The project is implemented in **Python 3.x** using the following libraries:
+The repository is structured to support a reproducible workflow.
 
-- **Pandas** – data manipulation
-- **NumPy** – numerical computation
-- **Matplotlib** – visualization
-- **Seaborn** – statistical plotting
-- **Scikit-learn** – preprocessing, modeling, and evaluation
-- **XGBoost** – gradient boosting regression
-- **SHAP** – model interpretability
-- **Streamlit** *(optional)* – future dashboard or presentation layer
+### Recommended execution order
+
+1. Run the raw-data audit script
+2. Run the cleaning pipeline
+3. Open and execute the notebooks in order:
+   - `01_Data_Cleaning_EDA.ipynb`
+   - `02_Modeling_Price_Prediction.ipynb`
+   - `03_Model_Evaluation_Interpretability.ipynb`
+
+### Scripts
+
+- `src/peek_data.py`  
+  Performs a quick audit of the raw dataset, including structure, missing values, duplicates, and descriptive previews.
+
+- `src/data_cleaning.py`  
+  Loads the raw Excel file, cleans and normalizes the dataset, creates derived features, and exports:
+  - `cleaned_car_data.csv`
+  - `ml_ready_car_data.csv`
 
 ---
 
-## Repository Structure
+## Installation
 
-```text
-Car-Market-Analysis-Attica/
-│
-├── .github/
-│   └── workflows/                      # GitHub Actions workflow
-│
-├── data/
-│   ├── raw/                            # Raw input files (kept locally / not necessarily tracked)
-│   └── processed/                      # Cleaned datasets and modeling exports
-│       ├── cleaned_car_data.csv
-│       ├── ml_ready_car_data.csv
-│       ├── model_comparison_results.csv
-│       └── best_model_test_predictions.csv
-│
-├── logs/                               # Research logs and activity notes
-│
-├── notebooks/
-│   ├── 01_Data_Cleaning_EDA.ipynb
-│   └── 02_Modeling_Price_Prediction.ipynb
-│
-├── plots/                              # Exported figures and charts
-│
-├── src/                                # Python scripts and utilities
-│   ├── data_cleaning.py
-│   └── peek_data.py
-│
-├── README.md
-├── CONTRIBUTING.md
-├── requirements.txt
-├── .gitignore
-└── LICENSE
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Athina34/Car-Market-Analysis-Attica.git
+cd Car-Market-Analysis-Attica
