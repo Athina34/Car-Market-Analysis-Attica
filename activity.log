@@ -47,3 +47,67 @@
 - Error analysis
 - SHAP / interpretability
 - Τελική επιλογή μοντέλου για την πτυχιακή
+
+
+---
+
+
+# Ημερολόγιο Εργασίας: Πτυχιακή Μελέτη
+**Project:** Car-Market-Analysis-Attica
+**Ημερομηνία:** 3 Απριλίου 2026
+
+## Σημερινή Πρόοδος
+- Ολοκληρώθηκε το `03_Model_Evaluation_Interpretability.ipynb`
+- Υλοποιήθηκε αναλυτική αξιολόγηση του τελικού μοντέλου
+- Έγινε hyperparameter tuning για:
+  - `RandomForestRegressor`
+  - `XGBRegressor`
+- Πραγματοποιήθηκε σύγκριση tuned vs untuned μοντέλων
+- Εκτελέστηκε detailed error analysis στο test set
+- Πραγματοποιήθηκε residual analysis
+- Υλοποιήθηκε grouped error analysis ανά:
+  - καύσιμο
+  - κατασκευαστή
+  - έτος πρώτης εγγραφής
+  - price segment
+- Εφαρμόστηκε SHAP interpretability για το τελικό μοντέλο
+- Εξήχθησαν νέα αρχεία αποτελεσμάτων στο `data/processed/`:
+  - `notebook3_search_summary.csv`
+  - `notebook3_model_test_results.csv`
+  - `notebook3_tuned_vs_untuned_comparison.csv`
+  - `notebook3_final_model_predictions.csv`
+  - `notebook3_error_by_fuel_type.csv`
+  - `notebook3_error_by_make.csv`
+  - `notebook3_error_by_registration_year.csv`
+  - `notebook3_error_by_price_segment.csv`
+  - `notebook3_transformed_shap_importance.csv`
+  - `notebook3_grouped_shap_importance.csv`
+
+## Εξαγωγή Figures
+- Δημιουργήθηκε ο φάκελος `plots/`
+- Αποθηκεύτηκαν export-ready figures από το Notebook 3:
+  - `notebook3_actual_vs_predicted.png`
+  - `notebook3_grouped_shap_importance.png`
+  - `notebook3_shap_summary_plot.png`
+
+## Τεκμηρίωση Repository
+- Προστέθηκε το `openpyxl` στο `requirements.txt`
+- Ξεκίνησε η ανανέωση του `README.md` ώστε να αποτυπώνει:
+  - την ολοκλήρωση του Notebook 3
+  - τα νέα processed outputs
+  - τη βελτιωμένη δομή του repository
+  - το reproducible workflow του project
+
+## Git / Repository Updates
+- Έγιναν ξεχωριστά commits και pushes για:
+  - figures του Notebook 3
+  - ενημερωμένα processed outputs
+- Το branch `main` συγχρονίστηκε επιτυχώς με το `origin/main`
+- Το working tree επιβεβαιώθηκε ως clean μετά τα pushes
+
+## Επόμενα Βήματα
+- Ολοκλήρωση και push του ανανεωμένου `README.md`
+- Περαιτέρω οργάνωση του `activity.log` και των project notes
+- Εξαγωγή επιπλέον figures από τα Notebook 1 και Notebook 2
+- Ενσωμάτωση των αποτελεσμάτων του Notebook 3 στη συγγραφή της πτυχιακής
+- Σύνταξη τελικών συμπερασμάτων για την επιλογή μοντέλου
