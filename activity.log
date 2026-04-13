@@ -111,3 +111,76 @@
 - Εξαγωγή επιπλέον figures από τα Notebook 1 και Notebook 2
 - Ενσωμάτωση των αποτελεσμάτων του Notebook 3 στη συγγραφή της πτυχιακής
 - Σύνταξη τελικών συμπερασμάτων για την επιλογή μοντέλου
+
+
+---
+
+
+# Ημερολόγιο Εργασίας: Πτυχιακή Μελέτη
+**Project:** Car-Market-Analysis-Attica
+**Ημερομηνία:** 14 Απριλίου 2026
+
+## Σημερινή Πρόοδος
+- Δημιουργήθηκε και ολοκληρώθηκε το `04_Final_Results_Thesis_Reporting.ipynb`
+- Συντέθηκαν τα βασικά αποτελέσματα των προηγούμενων notebooks σε μία τελική ενότητα κατάλληλη για τη συγγραφή της πτυχιακής
+- Πραγματοποιήθηκε τελική σύγκριση μοντέλων με έμφαση στις μετρικές:
+  - MAE
+  - RMSE
+  - R²
+- Αναλύθηκε η επίδραση του hyperparameter tuning για τα βασικά tree-based μοντέλα
+- Πραγματοποιήθηκε ανάλυση σφαλμάτων ανά:
+  - price segment
+  - καύσιμο
+  - έτος εγγραφής
+  - κατασκευαστή
+- Ενσωματώθηκε SHAP-based interpretability με:
+  - grouped SHAP importance
+  - transformed SHAP feature importance
+- Τεκμηριώθηκε η τελική επιλογή μοντέλου για την πτυχιακή
+- Συντάχθηκαν τελικά συμπεράσματα, περιορισμοί της μελέτης και προτάσεις για μελλοντική έρευνα
+
+## Εξαγωγή Figures
+- Αποθηκεύτηκαν νέα export-ready figures στον φάκελο `plots/`:
+  - `notebook4_model_comparison_rmse.png`
+  - `notebook4_model_comparison_mae.png`
+  - `notebook4_final_models_rmse.png`
+  - `notebook4_final_models_r2.png`
+  - `notebook4_tuning_rmse_comparison.png`
+  - `notebook4_tuning_mae_comparison.png`
+  - `notebook4_price_segment_mape.png`
+  - `notebook4_price_segment_rmse.png`
+  - `notebook4_error_by_fuel_mape.png`
+  - `notebook4_error_by_year_mae.png`
+  - `notebook4_best_makes.png`
+  - `notebook4_worst_makes.png`
+  - `notebook4_grouped_shap_importance.png`
+  - `notebook4_top15_shap_features.png`
+
+## Εξαγωγή Πινάκων
+- Δημιουργήθηκαν νέα summary outputs στον φάκελο `data/processed/notebook4_outputs/`
+- Παρήχθησαν πίνακες για:
+  - σύγκριση μοντέλων
+  - tuned vs untuned αποτελέσματα
+  - απόδοση ανά segment
+  - ανάλυση ανά καύσιμο, έτος και κατασκευαστή
+  - SHAP summaries
+  - key findings table
+  - inventory παραγόμενων outputs
+
+## Git / Repository Updates
+- Έγινε commit του νέου notebook και των plots με μήνυμα:
+  - `feat: add notebook 4 final thesis reporting`
+- Δημιουργήθηκε pull request από το branch `docs-rewrite-readme`
+- Το pull request έγινε merge επιτυχώς στο `main`
+- Διαγράφηκε το remote branch μετά το merge
+- Έγινε τοπικός συγχρονισμός με:
+  - `git checkout main`
+  - `git pull origin main`
+  - `git fetch --prune`
+  - διαγραφή του τοπικού merged branch
+- Επιβεβαιώθηκε ότι το working tree είναι clean και το local `main` είναι ενημερωμένο
+
+## Επόμενα Βήματα
+- Δημιουργία του `05_Market_Segmentation_Insights.ipynb`
+- Παραγωγή επιπλέον market-focused αναλύσεων για χρήση τόσο στην πτυχιακή όσο και σε μελλοντικό Streamlit app
+- Προετοιμασία dashboard-ready πινάκων και plots για το επόμενο στάδιο του project
