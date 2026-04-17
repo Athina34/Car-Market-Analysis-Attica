@@ -184,3 +184,105 @@
 - Δημιουργία του `05_Market_Segmentation_Insights.ipynb`
 - Παραγωγή επιπλέον market-focused αναλύσεων για χρήση τόσο στην πτυχιακή όσο και σε μελλοντικό Streamlit app
 - Προετοιμασία dashboard-ready πινάκων και plots για το επόμενο στάδιο του project
+
+
+---
+
+
+# Ημερολόγιο Εργασίας: Πτυχιακή Μελέτη
+**Project:** Car-Market-Analysis-Attica
+**Ημερομηνία:** 18 Απριλίου 2026
+
+## Σημερινή Πρόοδος
+- Δημιουργήθηκε και ολοκληρώθηκε το `05_Market_Segmentation_Insights.ipynb`
+- Οργανώθηκε η δομή του notebook με πλήρες reproducible workflow
+- Παρήχθη περιγραφική επισκόπηση της αγοράς μεταχειρισμένων αυτοκινήτων στην Αττική
+- Αναλύθηκε η συνολική κατανομή της τιμής με:
+  - histogram
+  - focused histogram
+  - boxplot
+  - focused boxplot
+- Επιβεβαιώθηκε η έντονη δεξιά ασυμμετρία της κατανομής της τιμής
+- Δημιουργήθηκαν 4 quantile-based `price_segment` κατηγορίες:
+  - Χαμηλή
+  - Χαμηλομεσαία
+  - Μεσοϋψηλή
+  - Υψηλή
+- Έγινε έλεγχος και διόρθωση της μεταβλητής `price_segment`, ώστε:
+  - να διασφαλιστεί η σωστή σειρά των segments
+  - να μην υπάρχουν missing τιμές
+  - να αποφεύγονται προβλήματα από παλιές/ασυνεπείς κατηγορίες
+- Πραγματοποιήθηκε συγκριτικό profiling των segments ως προς:
+  - τιμή
+  - χιλιόμετρα
+  - ηλικία
+  - ιπποδύναμη
+  - κυβισμό
+- Πραγματοποιήθηκε κατηγορική σύγκριση των segments ως προς:
+  - fuel type
+  - transmission
+  - manufacturer
+- Συντάχθηκαν ερμηνευτικά κείμενα για όλα τα βασικά ευρήματα του notebook
+- Συντάχθηκαν συνολικά συμπεράσματα για το Notebook 5
+
+## Βασικά Ευρήματα
+- Η αγορά εμφανίζει έντονη δεξιά ασυμμετρία στην κατανομή της τιμής
+- Η quantile-based τμηματοποίηση παρήγαγε τέσσερα ισορροπημένα price segments
+- Τα υψηλότερα segments συνδέονται με:
+  - χαμηλότερα χιλιόμετρα
+  - υψηλότερη ιπποδύναμη
+  - μεγαλύτερο κυβισμό
+  - ισχυρότερη παρουσία αυτόματης μετάδοσης
+  - αυξημένη συμμετοχή εξηλεκτρισμένων τεχνολογιών
+- Τα χαμηλότερα segments συνδέονται με:
+  - πιο συμβατικό προφίλ οχημάτων
+  - υψηλότερη χρήση
+  - πιο περιορισμένα τεχνικά χαρακτηριστικά
+- Τα price segments αποτυπώνουν ουσιαστικές υποαγορές και όχι απλώς τεχνητές κατηγορίες τιμής
+
+## Εξαγωγή Figures
+- Αποθηκεύτηκαν νέα export-ready figures στον φάκελο `plots/`:
+  - `notebook5_price_distribution.png`
+  - `notebook5_price_distribution_zoomed.png`
+  - `notebook5_price_boxplot.png`
+  - `notebook5_price_boxplot_zoomed.png`
+  - `notebook5_price_segment_counts.png`
+  - `notebook5_median_price_by_segment.png`
+  - `notebook5_median_mileage_by_segment.png`
+  - `notebook5_median_age_by_segment.png`
+  - `notebook5_median_horsepower_by_segment.png`
+  - `notebook5_median_engine_size_by_segment.png`
+  - `notebook5_fuel_type_by_segment_stacked.png`
+  - `notebook5_transmission_by_segment_stacked.png`
+  - `notebook5_top10_make_by_segment_heatmap.png`
+
+## Εξαγωγή Data Outputs
+- Αποθηκεύτηκαν νέα processed outputs στον φάκελο `data/processed/`:
+  - `notebook5_market_overview.csv`
+  - `notebook5_descriptive_statistics.csv`
+  - `notebook5_price_segment_counts.csv`
+  - `notebook5_price_segment_cutoffs.csv`
+  - `notebook5_segment_profile_summary.csv`
+  - `notebook5_fuel_type_by_segment_counts.csv`
+  - `notebook5_fuel_type_by_segment_shares.csv`
+  - `notebook5_transmission_by_segment_counts.csv`
+  - `notebook5_transmission_by_segment_shares.csv`
+  - `notebook5_top10_make_by_segment_counts.csv`
+  - `notebook5_top10_make_by_segment_shares.csv`
+
+## Git / Workflow
+- Δημιουργήθηκε branch εργασίας για το Notebook 5
+- Έγινε commit των αλλαγών και άνοιξε pull request προς `main`
+- Ολοκληρώθηκε επιτυχώς το build/check του pull request
+- Το pull request έγινε merge στο `main`
+- Διαγράφηκε το branch `8-notebook-5-market-segmentation-insights`
+- Πραγματοποιήθηκε καθαρισμός του local git state με:
+  - `git checkout main`
+  - `git pull origin main`
+  - `git fetch --prune`
+  - `git branch -d 8-notebook-5-market-segmentation-insights`
+
+## Κατάσταση
+- Το Notebook 5 ολοκληρώθηκε επιτυχώς
+- Το repository είναι συγχρονισμένο με το `origin/main`
+- Το επόμενο βήμα είναι η μετάβαση στο επόμενο notebook / επόμενη αναλυτική ενότητα
