@@ -1,0 +1,12 @@
+﻿metric,value
+n_observations,8296.0
+n_variables,12.0
+n_unique_makes,71.0
+n_unique_models,554.0
+n_unique_regions,276.0
+median_price,22000.0
+mean_price,33280.19587753134
+median_mileage,50019.5
+median_age,4.0
+median_horsepower,130.0
+median_engine_size,1500.0
