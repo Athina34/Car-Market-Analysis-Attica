@@ -286,3 +286,27 @@
 - Το Notebook 5 ολοκληρώθηκε επιτυχώς
 - Το repository είναι συγχρονισμένο με το `origin/main`
 - Το επόμενο βήμα είναι η μετάβαση στο επόμενο notebook / επόμενη αναλυτική ενότητα
+
+
+---
+
+
+# Ημερολόγιο Εργασίας: Πτυχιακή Μελέτη
+**Project:** Car-Market-Analysis-Attica
+**Ημερομηνία:** 19 Απριλίου 2026
+
+## Σημερινή Πρόοδος
+- Ολοκληρώθηκε η ενημέρωση του `README.md`
+- Η τεκμηρίωση ευθυγραμμίστηκε με την τρέχουσα πρόοδο του project
+- Προστέθηκαν τα `04_Final_Results_Thesis_Reporting.ipynb` και `05_Market_Segmentation_Insights.ipynb`
+- Ενισχύθηκε η αναφορά σε `data/processed/`, `plots/` και `activity.log`
+- Το project παρουσιάζεται πλέον ως workflow που περιλαμβάνει τόσο **price prediction** όσο και **market segmentation**
+
+## Git / Repository Updates
+- Δημιουργήθηκε branch για το documentation update
+- Έγινε commit και pull request για το `README.md`
+- Το pull request έγινε merge επιτυχώς στο `main`
+- Το issue `#7` έκλεισε επιτυχώς
+
+## Αποτέλεσμα
+- Το `README.md` αποτυπώνει πλέον σωστά την πραγματική κατάσταση και το analytical scope του repository
