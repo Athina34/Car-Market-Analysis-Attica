@@ -310,3 +310,41 @@
 
 ## Αποτέλεσμα
 - Το `README.md` αποτυπώνει πλέον σωστά την πραγματική κατάσταση και το analytical scope του repository
+
+
+---
+
+
+# Ημερολόγιο Εργασίας: Πτυχιακή Μελέτη
+**Project:** Car-Market-Analysis-Attica
+**Ημερομηνία:** 22 Απριλίου 2026
+
+## Σημερινή Πρόοδος
+- Ολοκληρώθηκε το `06_Dashboard_Ready_Market_Outputs.ipynb`
+- Δημιουργήθηκαν dashboard-ready CSV outputs για:
+  - market overview KPI summary
+  - segment KPI summary
+  - fuel type dashboard summary
+  - transmission dashboard summary
+  - make dashboard summary
+  - corrected make-by-segment tables
+  - plot-data exports
+- Δημιουργήθηκαν standardized PNG plots για:
+  - κατανομή αγοράς ανά `price_segment`
+  - σύνθεση τύπου καυσίμου ανά `price_segment`
+  - σύνθεση κιβωτίου ταχυτήτων ανά `price_segment`
+  - σύνθεση top-10 κατασκευαστών ανά `price_segment`
+- Έγινε τελικός έλεγχος παραδοτέων του Notebook 6 και επιβεβαιώθηκε ότι όλα δημιουργήθηκαν επιτυχώς
+
+## Git / Repository Updates
+- Έγινε commit των παραδοτέων του Notebook 6
+- Έγινε push στο branch `12-notebook-6-dashboard-ready-market-outputs`
+- Άνοιξε pull request για το Notebook 6
+- Το pull request έγινε merge επιτυχώς στο `main`
+- Το repository συγχρονίστηκε με το `origin/main`
+
+## Αποτέλεσμα
+- Το Notebook 6 ολοκληρώθηκε πλήρως
+- Τα dashboard-ready outputs είναι πλέον διαθέσιμα στα `data/processed/`
+- Τα plots είναι διαθέσιμα στον φάκελο `plots/`
+- Το project είναι έτοιμο για μετάβαση στο επόμενο notebook / επόμενη αναλυτική ενότητα
