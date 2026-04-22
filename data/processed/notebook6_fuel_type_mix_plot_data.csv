@@ -1,0 +1,37 @@
+﻿price_segment,fuel_type,n_observations,share_pct,display_count,display_share,dimension,source_table
+Χαμηλή,CNG / Βενζίνη,19,0.91,19,0.91%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλή,LPG / Βενζίνη,32,1.54,32,1.54%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλή,Plug-in Hybrid Βενζίνης,6,0.29,6,0.29%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλή,Plug-in Hybrid Πετρελαίου,0,0.0,0,0.00%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλή,Βενζίνη,1084,52.19,"1,084",52.19%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλή,Ηλεκτρικό,90,4.33,90,4.33%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλή,Πετρέλαιο,568,27.35,568,27.35%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλή,Υβριδικό Βενζίνης,275,13.24,275,13.24%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλή,Υβριδικό Πετρελαίου,3,0.14,3,0.14%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλομεσαία,CNG / Βενζίνη,15,0.72,15,0.72%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλομεσαία,LPG / Βενζίνη,31,1.49,31,1.49%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλομεσαία,Plug-in Hybrid Βενζίνης,58,2.79,58,2.79%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλομεσαία,Plug-in Hybrid Πετρελαίου,0,0.0,0,0.00%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλομεσαία,Βενζίνη,963,46.28,963,46.28%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλομεσαία,Ηλεκτρικό,100,4.81,100,4.81%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλομεσαία,Πετρέλαιο,406,19.51,406,19.51%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλομεσαία,Υβριδικό Βενζίνης,494,23.74,494,23.74%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Χαμηλομεσαία,Υβριδικό Πετρελαίου,14,0.67,14,0.67%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Μεσοϋψηλή,CNG / Βενζίνη,6,0.29,6,0.29%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Μεσοϋψηλή,LPG / Βενζίνη,3,0.14,3,0.14%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Μεσοϋψηλή,Plug-in Hybrid Βενζίνης,497,24.02,497,24.02%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Μεσοϋψηλή,Plug-in Hybrid Πετρελαίου,2,0.1,2,0.10%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Μεσοϋψηλή,Βενζίνη,552,26.68,552,26.68%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Μεσοϋψηλή,Ηλεκτρικό,178,8.6,178,8.60%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Μεσοϋψηλή,Πετρέλαιο,323,15.61,323,15.61%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Μεσοϋψηλή,Υβριδικό Βενζίνης,481,23.25,481,23.25%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Μεσοϋψηλή,Υβριδικό Πετρελαίου,27,1.3,27,1.30%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Υψηλή,CNG / Βενζίνη,0,0.0,0,0.00%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Υψηλή,LPG / Βενζίνη,0,0.0,0,0.00%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Υψηλή,Plug-in Hybrid Βενζίνης,611,29.53,611,29.53%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Υψηλή,Plug-in Hybrid Πετρελαίου,159,7.68,159,7.68%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Υψηλή,Βενζίνη,357,17.25,357,17.25%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Υψηλή,Ηλεκτρικό,284,13.73,284,13.73%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Υψηλή,Πετρέλαιο,256,12.37,256,12.37%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Υψηλή,Υβριδικό Βενζίνης,176,8.51,176,8.51%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares
+Υψηλή,Υβριδικό Πετρελαίου,226,10.92,226,10.92%,fuel_type,notebook5_fuel_type_by_segment_counts + notebook5_fuel_type_by_segment_shares

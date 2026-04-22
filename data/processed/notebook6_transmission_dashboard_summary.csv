@@ -1,0 +1,13 @@
+﻿price_segment,transmission_type,n_observations,share_pct,display_count,display_share,dimension,source_table
+Χαμηλή,Αυτόματο,371,17.86,371,17.86%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Χαμηλή,Χειροκίνητο,1705,82.09,"1,705",82.09%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Χαμηλή,Ημιαυτόματο,1,0.05,1,0.05%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Χαμηλομεσαία,Αυτόματο,1058,50.84,"1,058",50.84%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Χαμηλομεσαία,Χειροκίνητο,1022,49.11,"1,022",49.11%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Χαμηλομεσαία,Ημιαυτόματο,1,0.05,1,0.05%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Μεσοϋψηλή,Αυτόματο,1797,86.85,"1,797",86.85%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Μεσοϋψηλή,Χειροκίνητο,264,12.76,264,12.76%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Μεσοϋψηλή,Ημιαυτόματο,8,0.39,8,0.39%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Υψηλή,Αυτόματο,2031,98.16,"2,031",98.16%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Υψηλή,Χειροκίνητο,30,1.45,30,1.45%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
+Υψηλή,Ημιαυτόματο,8,0.39,8,0.39%,transmission,notebook5_transmission_by_segment_counts + notebook5_transmission_by_segment_shares
