@@ -1,0 +1,49 @@
+﻿price_segment,kpi_id,kpi_label_el,group,source_metric,raw_value,display_value,value_type,source_table
+Χαμηλή,segment_Χαμηλή_n_observations,Αριθμός παρατηρήσεων,Μέγεθος segment,n_observations,2077.0,"2,077",integer,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_share_pct,Ποσοστό συμμετοχής,Μέγεθος segment,share_pct,25.04,25.04%,percentage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_median_horsepower,Διάμεση ιπποδύναμη,Τεχνικά χαρακτηριστικά,median_horsepower,100.0,100 hp,horsepower,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_median_engine_size,Διάμεσος κυβισμός,Τεχνικά χαρακτηριστικά,median_engine_size,1200.0,"1,200 cc",engine_size,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_mean_horsepower,Μέση ιπποδύναμη,Τεχνικά χαρακτηριστικά,mean_horsepower,94.6,95 hp,horsepower,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_mean_engine_size,Μέσος κυβισμός,Τεχνικά χαρακτηριστικά,mean_engine_size,1227.98,"1,228 cc",engine_size,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_median_price,Διάμεση τιμή,Τιμή,median_price,13750.0,"€13,750",currency,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_mean_price,Μέση τιμή,Τιμή,mean_price,13345.93,"€13,346",currency,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_median_age,Διάμεση ηλικία,Χρήση οχήματος,median_age,5.0,5.0 έτη,age,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_median_mileage,Διάμεση χιλιομετρική κάλυψη,Χρήση οχήματος,median_mileage,67245.0,"67,245 km",mileage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_mean_age,Μέση ηλικία,Χρήση οχήματος,mean_age,4.21,4.2 έτη,age,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλή,segment_Χαμηλή_mean_mileage,Μέση χιλιομετρική κάλυψη,Χρήση οχήματος,mean_mileage,70253.86,"70,254 km",mileage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_n_observations,Αριθμός παρατηρήσεων,Μέγεθος segment,n_observations,2081.0,"2,081",integer,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_share_pct,Ποσοστό συμμετοχής,Μέγεθος segment,share_pct,25.08,25.08%,percentage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_median_horsepower,Διάμεση ιπποδύναμη,Τεχνικά χαρακτηριστικά,median_horsepower,120.0,120 hp,horsepower,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_median_engine_size,Διάμεσος κυβισμός,Τεχνικά χαρακτηριστικά,median_engine_size,1300.0,"1,300 cc",engine_size,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_mean_horsepower,Μέση ιπποδύναμη,Τεχνικά χαρακτηριστικά,mean_horsepower,122.65,123 hp,horsepower,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_mean_engine_size,Μέσος κυβισμός,Τεχνικά χαρακτηριστικά,mean_engine_size,1333.01,"1,333 cc",engine_size,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_median_price,Διάμεση τιμή,Τιμή,median_price,18990.0,"€18,990",currency,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_mean_price,Μέση τιμή,Τιμή,mean_price,19127.83,"€19,128",currency,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_median_age,Διάμεση ηλικία,Χρήση οχήματος,median_age,4.0,4.0 έτη,age,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_median_mileage,Διάμεση χιλιομετρική κάλυψη,Χρήση οχήματος,median_mileage,50900.0,"50,900 km",mileage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_mean_age,Μέση ηλικία,Χρήση οχήματος,mean_age,3.66,3.7 έτη,age,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Χαμηλομεσαία,segment_Χαμηλομεσαία_mean_mileage,Μέση χιλιομετρική κάλυψη,Χρήση οχήματος,mean_mileage,54669.7,"54,670 km",mileage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_n_observations,Αριθμός παρατηρήσεων,Μέγεθος segment,n_observations,2069.0,"2,069",integer,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_share_pct,Ποσοστό συμμετοχής,Μέγεθος segment,share_pct,24.94,24.94%,percentage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_median_horsepower,Διάμεση ιπποδύναμη,Τεχνικά χαρακτηριστικά,median_horsepower,155.0,155 hp,horsepower,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_median_engine_size,Διάμεσος κυβισμός,Τεχνικά χαρακτηριστικά,median_engine_size,1500.0,"1,500 cc",engine_size,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_mean_horsepower,Μέση ιπποδύναμη,Τεχνικά χαρακτηριστικά,mean_horsepower,179.65,180 hp,horsepower,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_mean_engine_size,Μέσος κυβισμός,Τεχνικά χαρακτηριστικά,mean_engine_size,1519.62,"1,520 cc",engine_size,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_median_price,Διάμεση τιμή,Τιμή,median_price,27300.0,"€27,300",currency,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_mean_price,Μέση τιμή,Τιμή,mean_price,27571.9,"€27,572",currency,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_median_age,Διάμεση ηλικία,Χρήση οχήματος,median_age,4.0,4.0 έτη,age,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_median_mileage,Διάμεση χιλιομετρική κάλυψη,Χρήση οχήματος,median_mileage,48384.0,"48,384 km",mileage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_mean_age,Μέση ηλικία,Χρήση οχήματος,mean_age,3.73,3.7 έτη,age,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Μεσοϋψηλή,segment_Μεσοϋψηλή_mean_mileage,Μέση χιλιομετρική κάλυψη,Χρήση οχήματος,mean_mileage,53639.46,"53,639 km",mileage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_n_observations,Αριθμός παρατηρήσεων,Μέγεθος segment,n_observations,2069.0,"2,069",integer,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_share_pct,Ποσοστό συμμετοχής,Μέγεθος segment,share_pct,24.94,24.94%,percentage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_median_horsepower,Διάμεση ιπποδύναμη,Τεχνικά χαρακτηριστικά,median_horsepower,306.0,306 hp,horsepower,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_median_engine_size,Διάμεσος κυβισμός,Τεχνικά χαρακτηριστικά,median_engine_size,2000.0,"2,000 cc",engine_size,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_mean_horsepower,Μέση ιπποδύναμη,Τεχνικά χαρακτηριστικά,mean_horsepower,326.37,326 hp,horsepower,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_mean_engine_size,Μέσος κυβισμός,Τεχνικά χαρακτηριστικά,mean_engine_size,2266.44,"2,266 cc",engine_size,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_median_price,Διάμεση τιμή,Τιμή,median_price,58000.0,"€58,000",currency,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_mean_price,Μέση τιμή,Τιμή,mean_price,73234.27,"€73,234",currency,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_median_age,Διάμεση ηλικία,Χρήση οχήματος,median_age,4.0,4.0 έτη,age,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_median_mileage,Διάμεση χιλιομετρική κάλυψη,Χρήση οχήματος,median_mileage,35500.0,"35,500 km",mileage,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_mean_age,Μέση ηλικία,Χρήση οχήματος,mean_age,3.43,3.4 έτη,age,notebook5_price_segment_counts + notebook5_segment_profile_summary
+Υψηλή,segment_Υψηλή_mean_mileage,Μέση χιλιομετρική κάλυψη,Χρήση οχήματος,mean_mileage,44838.38,"44,838 km",mileage,notebook5_price_segment_counts + notebook5_segment_profile_summary

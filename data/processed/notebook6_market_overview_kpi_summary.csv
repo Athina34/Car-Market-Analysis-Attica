@@ -1,0 +1,12 @@
+﻿kpi_id,kpi_label_el,group,source_metric,raw_value,display_value,value_type,source_table
+market_n_observations,Συνολικός αριθμός παρατηρήσεων,Μέγεθος αγοράς,n_observations,8296.0,"8,296",integer,notebook5_market_overview
+market_n_variables,Συνολικός αριθμός μεταβλητών,Δομή δεδομένων,n_variables,12.0,12,integer,notebook5_market_overview
+market_n_unique_makes,Διακριτοί κατασκευαστές,Ποικιλία αγοράς,n_unique_makes,71.0,71,integer,notebook5_market_overview
+market_n_unique_models,Διακριτά μοντέλα,Ποικιλία αγοράς,n_unique_models,554.0,554,integer,notebook5_market_overview
+market_n_unique_regions,Διακριτές περιοχές,Γεωγραφική κάλυψη,n_unique_regions,276.0,276,integer,notebook5_market_overview
+market_median_price,Διάμεση τιμή,Τιμή,median_price,22000.0,"€22,000",currency,notebook5_market_overview
+market_mean_price,Μέση τιμή,Τιμή,mean_price,33280.19587753134,"€33,280",currency,notebook5_market_overview
+market_median_mileage,Διάμεση χιλιομετρική κάλυψη,Χρήση οχήματος,median_mileage,50019.5,"50,020 km",mileage,notebook5_market_overview
+market_median_age,Διάμεση ηλικία,Χρήση οχήματος,median_age,4.0,4.0 έτη,age,notebook5_market_overview
+market_median_horsepower,Διάμεση ιπποδύναμη,Τεχνικά χαρακτηριστικά,median_horsepower,130.0,130 hp,horsepower,notebook5_market_overview
+market_median_engine_size,Διάμεσος κυβισμός,Τεχνικά χαρακτηριστικά,median_engine_size,1500.0,"1,500 cc",engine_size,notebook5_market_overview
