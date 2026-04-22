@@ -1,0 +1,31 @@
+﻿filter_group,option_order,option_value,option_label_el,option_label_en,section_ids_supported,source_table_key,is_default_option
+fuel_type,0,ALL,Όλοι οι τύποι καυσίμου,All Fuel Types,fuel_mix,fuel_type_dashboard_summary,True
+fuel_type,1,CNG / Βενζίνη,CNG / Βενζίνη,CNG / Βενζίνη,fuel_mix,fuel_type_dashboard_summary,False
+fuel_type,2,LPG / Βενζίνη,LPG / Βενζίνη,LPG / Βενζίνη,fuel_mix,fuel_type_dashboard_summary,False
+fuel_type,3,Plug-in Hybrid Βενζίνης,Plug-in Hybrid Βενζίνης,Plug-in Hybrid Βενζίνης,fuel_mix,fuel_type_dashboard_summary,False
+fuel_type,4,Plug-in Hybrid Πετρελαίου,Plug-in Hybrid Πετρελαίου,Plug-in Hybrid Πετρελαίου,fuel_mix,fuel_type_dashboard_summary,False
+fuel_type,5,Βενζίνη,Βενζίνη,Βενζίνη,fuel_mix,fuel_type_dashboard_summary,False
+fuel_type,6,Ηλεκτρικό,Ηλεκτρικό,Ηλεκτρικό,fuel_mix,fuel_type_dashboard_summary,False
+fuel_type,7,Πετρέλαιο,Πετρέλαιο,Πετρέλαιο,fuel_mix,fuel_type_dashboard_summary,False
+fuel_type,8,Υβριδικό Βενζίνης,Υβριδικό Βενζίνης,Υβριδικό Βενζίνης,fuel_mix,fuel_type_dashboard_summary,False
+fuel_type,9,Υβριδικό Πετρελαίου,Υβριδικό Πετρελαίου,Υβριδικό Πετρελαίου,fuel_mix,fuel_type_dashboard_summary,False
+make,0,ALL,Όλοι οι κατασκευαστές,All Makes,make_concentration,make_dashboard_summary,True
+make,1,Audi,Audi,Audi,make_concentration,make_dashboard_summary,False
+make,2,BMW,BMW,BMW,make_concentration,make_dashboard_summary,False
+make,3,Citroen,Citroen,Citroen,make_concentration,make_dashboard_summary,False
+make,4,Ford,Ford,Ford,make_concentration,make_dashboard_summary,False
+make,5,Hyundai,Hyundai,Hyundai,make_concentration,make_dashboard_summary,False
+make,6,Mercedes-Benz,Mercedes-Benz,Mercedes-Benz,make_concentration,make_dashboard_summary,False
+make,7,Opel,Opel,Opel,make_concentration,make_dashboard_summary,False
+make,8,Peugeot,Peugeot,Peugeot,make_concentration,make_dashboard_summary,False
+make,9,Toyota,Toyota,Toyota,make_concentration,make_dashboard_summary,False
+make,10,Volkswagen,Volkswagen,Volkswagen,make_concentration,make_dashboard_summary,False
+price_segment,0,ALL,Όλα τα segments,All Segments,segment_profile | fuel_mix | transmission_mix | make_concentration,price_segment_share_plot_data,True
+price_segment,1,Χαμηλή,Χαμηλή,Χαμηλή,segment_profile | fuel_mix | transmission_mix | make_concentration,price_segment_share_plot_data,False
+price_segment,2,Χαμηλομεσαία,Χαμηλομεσαία,Χαμηλομεσαία,segment_profile | fuel_mix | transmission_mix | make_concentration,price_segment_share_plot_data,False
+price_segment,3,Μεσοϋψηλή,Μεσοϋψηλή,Μεσοϋψηλή,segment_profile | fuel_mix | transmission_mix | make_concentration,price_segment_share_plot_data,False
+price_segment,4,Υψηλή,Υψηλή,Υψηλή,segment_profile | fuel_mix | transmission_mix | make_concentration,price_segment_share_plot_data,False
+transmission_type,0,ALL,Όλοι οι τύποι μετάδοσης,All Transmission Types,transmission_mix,transmission_dashboard_summary,True
+transmission_type,1,Αυτόματο,Αυτόματο,Αυτόματο,transmission_mix,transmission_dashboard_summary,False
+transmission_type,2,Ημιαυτόματο,Ημιαυτόματο,Ημιαυτόματο,transmission_mix,transmission_dashboard_summary,False
+transmission_type,3,Χειροκίνητο,Χειροκίνητο,Χειροκίνητο,transmission_mix,transmission_dashboard_summary,False
