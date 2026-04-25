@@ -1,7 +1,7 @@
 # streamlit_app.py
 # ============================================================
 # Streamlit Dashboard Prototype
-# Car Market Analysis Attica – Issue #16
+# Car Market Analysis Attica
 # Consume Notebook 7 Registries
 # ============================================================
 
@@ -12,213 +12,63 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-
-# ------------------------------------------------------------
-# 1. Βασικές ρυθμίσεις εφαρμογής
-# ------------------------------------------------------------
-
-APP_TITLE = "Car Market Analysis Attica"
-APP_SUBTITLE = "Πρώτο Streamlit dashboard prototype με κατανάλωση των Notebook 7 registries"
-
-NOTEBOOK7_REGISTRY_FILES = {
-    "sections": "notebook7_dashboard_sections_registry.csv",
-    "cards": "notebook7_dashboard_cards_registry.csv",
-    "charts": "notebook7_dashboard_charts_registry.csv",
-    "section_components": "notebook7_section_component_registry.csv",
-    "section_bundles": "notebook7_streamlit_section_bundles.csv",
-    "filter_options": "notebook7_dashboard_filter_options_registry.csv",
-    "asset_inventory": "notebook7_integration_asset_inventory.csv",
-}
-
-EXPECTED_MIN_COLUMNS = {
-    "sections": [
-        "section_id",
-        "section_order",
-        "section_title_el",
-        "streamlit_tab_name",
-    ],
-    "cards": [
-        "card_id",
-        "section_id",
-        "component_type",
-    ],
-    "charts": [
-        "chart_id",
-        "section_id",
-        "chart_type",
-        "chart_title_el",
-    ],
-    "section_components": [
-        "section_id",
-        "n_cards",
-        "n_charts",
-    ],
-    "section_bundles": [
-        "section_id",
-        "section_order",
-        "section_title_el",
-        "n_cards",
-        "n_charts",
-    ],
-    "filter_options": [
-        "filter_group",
-        "option_order",
-        "option_value",
-        "option_label_el",
-    ],
-    "asset_inventory": [
-        "asset_stage",
-        "asset_id",
-        "asset_kind",
-        "file_name",
-    ],
-}
+from src.dashboard.config import (
+    APP_LAYOUT,
+    APP_PAGE_ICON,
+    APP_PAGE_TITLE,
+    NOTEBOOK7_REGISTRY_FILES,
+)
+from src.dashboard.data_loader import (
+    find_project_root,
+    get_processed_dir,
+    load_notebook7_registries,
+    select_existing_columns,
+)
+from src.dashboard.styles import apply_custom_theme, render_hero
 
 
 # ------------------------------------------------------------
-# 2. Βοηθητικές συναρτήσεις paths
+# 1. Cached registry loading
 # ------------------------------------------------------------
 
-def find_project_root(start_path: Path) -> Path:
+def build_registry_fingerprint(processed_dir: Path) -> tuple[tuple[str, int], ...]:
     """
-    Εντοπίζει το root του repository με βάση σταθερά project markers.
+    Builds a lightweight fingerprint for the Notebook 7 registry files.
 
-    Η λογική αυτή κάνει το app πιο ανθεκτικό, ώστε να μπορεί να τρέξει
-    από το root του repository χωρίς hardcoded absolute paths.
+    The fingerprint is based on file modification timestamps so Streamlit
+    refreshes the cache when a registry file changes.
     """
-    current_path = start_path.resolve()
+    fingerprint_records = []
 
-    for candidate_path in [current_path] + list(current_path.parents):
-        has_readme = (candidate_path / "README.md").exists()
-        has_data_processed = (candidate_path / "data" / "processed").exists()
-        has_notebooks = (candidate_path / "notebooks").exists()
+    for file_name in NOTEBOOK7_REGISTRY_FILES.values():
+        file_path = processed_dir / file_name
+        file_mtime_ns = file_path.stat().st_mtime_ns if file_path.exists() else -1
+        fingerprint_records.append((file_name, file_mtime_ns))
 
-        if has_readme and has_data_processed and has_notebooks:
-            return candidate_path
-
-    raise FileNotFoundError(
-        "Δεν ήταν δυνατό να εντοπιστεί το root του project. "
-        "Τρέξε την εφαρμογή από τον φάκελο Car-Market-Analysis-Attica."
-    )
+    return tuple(fingerprint_records)
 
 
-PROJECT_ROOT = find_project_root(Path(__file__).resolve().parent)
-PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
-
-
-# ------------------------------------------------------------
-# 3. Data loading με cache
-# ------------------------------------------------------------
-
-@st.cache_data(show_spinner="Φόρτωση CSV registry...")
-def load_csv_registry(file_path: str, file_mtime_ns: int) -> pd.DataFrame:
+@st.cache_data(show_spinner="Loading Notebook 7 registries...")
+def load_cached_notebook7_registries(
+    processed_dir_str: str,
+    registry_fingerprint: tuple[tuple[str, int], ...],
+) -> tuple[dict[str, pd.DataFrame], pd.DataFrame]:
     """
-    Διαβάζει ένα CSV registry.
-
-    Το file_mtime_ns μπαίνει ως cache argument, ώστε το Streamlit cache
-    να ανανεώνεται όταν αλλάξει το αρχείο στο δίσκο.
+    Cached wrapper around the reusable registry loading layer.
     """
-    return pd.read_csv(file_path, encoding="utf-8-sig")
+    _ = registry_fingerprint
+    processed_dir = Path(processed_dir_str)
 
-
-def validate_columns(
-    df: pd.DataFrame,
-    expected_columns: list[str],
-) -> list[str]:
-    """
-    Επιστρέφει λίστα με στήλες που λείπουν από ένα DataFrame.
-    """
-    return [column for column in expected_columns if column not in df.columns]
-
-
-def load_notebook7_registries() -> tuple[dict[str, pd.DataFrame], pd.DataFrame]:
-    """
-    Φορτώνει όλα τα Notebook 7 registries και δημιουργεί inventory ελέγχου.
-    """
-    registries: dict[str, pd.DataFrame] = {}
-    inventory_records = []
-
-    for registry_key, file_name in NOTEBOOK7_REGISTRY_FILES.items():
-        file_path = PROCESSED_DIR / file_name
-        file_exists = file_path.exists()
-
-        if not file_exists:
-            inventory_records.append(
-                {
-                    "registry_key": registry_key,
-                    "file_name": file_name,
-                    "file_exists": False,
-                    "can_read": False,
-                    "n_rows": pd.NA,
-                    "n_columns": pd.NA,
-                    "missing_columns": "file_missing",
-                }
-            )
-            continue
-
-        try:
-            df = load_csv_registry(
-                file_path=str(file_path),
-                file_mtime_ns=file_path.stat().st_mtime_ns,
-            )
-
-            expected_columns = EXPECTED_MIN_COLUMNS.get(registry_key, [])
-            missing_columns = validate_columns(df, expected_columns)
-
-            registries[registry_key] = df
-
-            inventory_records.append(
-                {
-                    "registry_key": registry_key,
-                    "file_name": file_name,
-                    "file_exists": True,
-                    "can_read": True,
-                    "n_rows": df.shape[0],
-                    "n_columns": df.shape[1],
-                    "missing_columns": " | ".join(missing_columns) if missing_columns else "",
-                }
-            )
-
-        except Exception as exc:
-            inventory_records.append(
-                {
-                    "registry_key": registry_key,
-                    "file_name": file_name,
-                    "file_exists": True,
-                    "can_read": False,
-                    "n_rows": pd.NA,
-                    "n_columns": pd.NA,
-                    "missing_columns": f"read_error: {exc}",
-                }
-            )
-
-    inventory_df = (
-        pd.DataFrame(inventory_records)
-        .sort_values("registry_key")
-        .reset_index(drop=True)
-    )
-
-    return registries, inventory_df
+    return load_notebook7_registries(processed_dir)
 
 
 # ------------------------------------------------------------
-# 4. Μικρά UI helpers
+# 2. UI helper functions
 # ------------------------------------------------------------
-
-def select_existing_columns(
-    df: pd.DataFrame,
-    columns: list[str],
-) -> list[str]:
-    """
-    Κρατά μόνο τις στήλες που υπάρχουν πραγματικά στο DataFrame.
-    Χρήσιμο για ανθεκτικό prototype rendering.
-    """
-    return [column for column in columns if column in df.columns]
-
 
 def render_registry_health(inventory_df: pd.DataFrame) -> None:
     """
-    Εμφανίζει βασικό status των Notebook 7 registry inputs.
+    Renders the main registry validation status.
     """
     all_files_exist = bool(inventory_df["file_exists"].all())
     all_files_read = bool(inventory_df["can_read"].all())
@@ -226,29 +76,55 @@ def render_registry_health(inventory_df: pd.DataFrame) -> None:
 
     col1, col2, col3 = st.columns(3)
 
-    col1.metric("Registry files", f"{inventory_df['file_exists'].sum()} / {len(inventory_df)}")
-    col2.metric("Readable files", f"{inventory_df['can_read'].sum()} / {len(inventory_df)}")
+    col1.metric(
+        "Registry files",
+        f"{inventory_df['file_exists'].sum()} / {len(inventory_df)}",
+    )
+    col2.metric(
+        "Readable files",
+        f"{inventory_df['can_read'].sum()} / {len(inventory_df)}",
+    )
     col3.metric(
         "Column checks",
-        "OK" if no_missing_columns else "Needs review",
+        "OK" if no_missing_columns else "Review",
     )
 
     if all_files_exist and all_files_read and no_missing_columns:
-        st.success("Όλα τα βασικά Notebook 7 registries φορτώθηκαν επιτυχώς.")
+        st.success("All core Notebook 7 registries were loaded successfully.")
     else:
         st.warning(
-            "Υπάρχει θέμα σε κάποιο registry. Δες τον πίνακα ελέγχου πριν συνεχίσουμε."
+            "One or more registries require attention. "
+            "Review the validation table before continuing."
         )
 
 
-def render_sections_preview(registries: dict[str, pd.DataFrame]) -> None:
+def render_registry_inventory(inventory_df: pd.DataFrame) -> None:
     """
-    Εμφανίζει πρώτη επισκόπηση των dashboard sections.
+    Renders the registry inventory table.
+    """
+    st.subheader("Registry inventory")
+    st.caption(
+        "Validation summary for the CSV registries exported by Notebook 7."
+    )
+
+    st.dataframe(
+        inventory_df,
+        width="stretch",
+        hide_index=True,
+    )
+
+
+def render_sections_preview(
+    registries: dict[str, pd.DataFrame],
+    show_metadata: bool,
+) -> None:
+    """
+    Renders a preview of dashboard sections.
     """
     sections_df = registries.get("sections")
 
     if sections_df is None or sections_df.empty:
-        st.info("Δεν βρέθηκε διαθέσιμο sections registry.")
+        st.info("No sections registry is available.")
         return
 
     sort_columns = select_existing_columns(sections_df, ["section_order", "section_id"])
@@ -256,6 +132,9 @@ def render_sections_preview(registries: dict[str, pd.DataFrame]) -> None:
         sections_df = sections_df.sort_values(sort_columns)
 
     st.subheader("Dashboard sections")
+    st.caption(
+        "High-level structure of the dashboard views prepared by Notebook 7."
+    )
 
     preview_columns = select_existing_columns(
         sections_df,
@@ -271,50 +150,58 @@ def render_sections_preview(registries: dict[str, pd.DataFrame]) -> None:
 
     st.dataframe(
         sections_df[preview_columns],
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
-    st.markdown("### Αναλυτική επισκόπηση sections")
+    st.markdown("### Section details")
 
     for _, row in sections_df.iterrows():
         section_order = row.get("section_order", "")
-        section_title = row.get("section_title_el", row.get("section_id", "Άγνωστη ενότητα"))
-        section_id = row.get("section_id", "")
-        section_description = row.get("section_description_el", "Δεν υπάρχει περιγραφή.")
+        section_id = row.get("section_id", "unknown_section")
+        section_title = row.get("section_title_el", section_id)
+        section_description = row.get(
+            "section_description_el",
+            "No section description is available.",
+        )
 
-        with st.expander(f"{section_order}. {section_title} — `{section_id}`"):
+        with st.expander(f"{section_order}. {section_id}"):
+            st.markdown(f"**Registry title:** {section_title}")
             st.write(section_description)
 
-            detail_columns = select_existing_columns(
-                sections_df,
-                [
-                    "primary_table_key",
-                    "primary_plot_key",
-                    "supports_price_segment_filter",
-                    "supports_category_filter",
-                ],
-            )
-
-            if detail_columns:
-                st.dataframe(
-                    pd.DataFrame([row[detail_columns]]),
-                    use_container_width=True,
-                    hide_index=True,
+            if show_metadata:
+                detail_columns = select_existing_columns(
+                    sections_df,
+                    [
+                        "primary_table_key",
+                        "primary_plot_key",
+                        "supports_price_segment_filter",
+                        "supports_category_filter",
+                    ],
                 )
+
+                if detail_columns:
+                    st.dataframe(
+                        pd.DataFrame([row[detail_columns]]),
+                        width="stretch",
+                        hide_index=True,
+                    )
 
 
 def render_bundles_preview(registries: dict[str, pd.DataFrame]) -> None:
     """
-    Εμφανίζει το streamlit-ready section bundles registry.
+    Renders the Streamlit-ready section bundles registry.
     """
     bundles_df = registries.get("section_bundles")
 
     if bundles_df is None or bundles_df.empty:
-        st.info("Δεν βρέθηκε διαθέσιμο section bundles registry.")
+        st.info("No section bundles registry is available.")
         return
 
-    st.subheader("Streamlit-ready section bundles")
+    st.subheader("Section bundles")
+    st.caption(
+        "Streamlit-ready mapping between dashboard sections, KPI cards, charts and source assets."
+    )
 
     preview_columns = select_existing_columns(
         bundles_df,
@@ -333,14 +220,14 @@ def render_bundles_preview(registries: dict[str, pd.DataFrame]) -> None:
 
     st.dataframe(
         bundles_df[preview_columns],
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
 
 def render_cards_and_charts_preview(registries: dict[str, pd.DataFrame]) -> None:
     """
-    Εμφανίζει πρώτη σύνοψη KPI cards και charts.
+    Renders a first summary of KPI cards and chart registries.
     """
     cards_df = registries.get("cards")
     charts_df = registries.get("charts")
@@ -348,12 +235,12 @@ def render_cards_and_charts_preview(registries: dict[str, pd.DataFrame]) -> None
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("KPI cards registry")
+        st.subheader("KPI cards")
 
         if cards_df is None or cards_df.empty:
-            st.info("Δεν βρέθηκε διαθέσιμο cards registry.")
+            st.info("No KPI cards registry is available.")
         else:
-            st.metric("Συνολικά KPI cards", len(cards_df))
+            st.metric("Total KPI cards", len(cards_df))
 
             card_columns = select_existing_columns(
                 cards_df,
@@ -370,17 +257,17 @@ def render_cards_and_charts_preview(registries: dict[str, pd.DataFrame]) -> None
 
             st.dataframe(
                 cards_df[card_columns].head(30),
-                use_container_width=True,
+                width="stretch",
                 hide_index=True,
             )
 
     with col2:
-        st.subheader("Charts registry")
+        st.subheader("Charts")
 
         if charts_df is None or charts_df.empty:
-            st.info("Δεν βρέθηκε διαθέσιμο charts registry.")
+            st.info("No charts registry is available.")
         else:
-            st.metric("Συνολικά charts", len(charts_df))
+            st.metric("Total charts", len(charts_df))
 
             chart_columns = select_existing_columns(
                 charts_df,
@@ -397,22 +284,29 @@ def render_cards_and_charts_preview(registries: dict[str, pd.DataFrame]) -> None
 
             st.dataframe(
                 charts_df[chart_columns],
-                use_container_width=True,
+                width="stretch",
                 hide_index=True,
             )
 
 
 def render_filter_options_preview(registries: dict[str, pd.DataFrame]) -> None:
     """
-    Εμφανίζει τις διαθέσιμες επιλογές φίλτρων.
+    Renders the available dashboard filter options.
     """
     filter_options_df = registries.get("filter_options")
 
     if filter_options_df is None or filter_options_df.empty:
-        st.info("Δεν βρέθηκε διαθέσιμο filter options registry.")
+        st.info("No filter options registry is available.")
         return
 
-    st.subheader("Streamlit filter options")
+    st.subheader("Filter options")
+    st.caption(
+        "Available filter groups and options prepared for the Streamlit dashboard."
+    )
+
+    if "filter_group" not in filter_options_df.columns:
+        st.warning("The filter options registry does not contain `filter_group`.")
+        return
 
     filter_group_values = (
         filter_options_df["filter_group"]
@@ -421,12 +315,14 @@ def render_filter_options_preview(registries: dict[str, pd.DataFrame]) -> None:
         .sort_values()
         .unique()
         .tolist()
-        if "filter_group" in filter_options_df.columns
-        else []
     )
 
+    if not filter_group_values:
+        st.info("No filter groups were found.")
+        return
+
     selected_filter_group = st.selectbox(
-        "Επίλεξε ομάδα φίλτρου",
+        "Select filter group",
         options=filter_group_values,
     )
 
@@ -446,54 +342,76 @@ def render_filter_options_preview(registries: dict[str, pd.DataFrame]) -> None:
         ],
     )
 
+    st.metric("Available options", len(filtered_df))
+
     st.dataframe(
         filtered_df[preview_columns],
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
 
 # ------------------------------------------------------------
-# 5. Streamlit app
+# 3. Streamlit app
 # ------------------------------------------------------------
 
 st.set_page_config(
-    page_title="Car Market Analysis Attica Dashboard",
-    page_icon="🏎️",
-    layout="wide",
+    page_title=APP_PAGE_TITLE,
+    page_icon=APP_PAGE_ICON,
+    layout=APP_LAYOUT,
 )
 
-st.title(APP_TITLE)
-st.caption(APP_SUBTITLE)
+apply_custom_theme()
+
+project_root = find_project_root(Path(__file__).resolve().parent)
+processed_dir = get_processed_dir(project_root)
+registry_fingerprint = build_registry_fingerprint(processed_dir)
+
+registries, registry_inventory_df = load_cached_notebook7_registries(
+    processed_dir_str=str(processed_dir),
+    registry_fingerprint=registry_fingerprint,
+)
+
+render_hero()
 
 st.markdown(
     """
-    Το παρόν prototype αποτελεί το πρώτο λειτουργικό βήμα του dashboard layer.
-    Σε αυτό το στάδιο δεν αναπαράγουμε την ανάλυση των notebooks.
-    Ελέγχουμε ότι η εφαρμογή μπορεί να καταναλώσει καθαρά τα exported registries
-    του Notebook 7 από τον φάκελο `data/processed/`.
-    """
+    <div class="section-note">
+    This prototype does not reproduce the notebook analysis. It validates that
+    the application can consistently consume the exported Notebook 7 registries
+    from <code>data/processed/</code>.
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
 with st.sidebar:
     st.header("Project paths")
+
     st.write("Project root:")
-    st.code(str(PROJECT_ROOT), language="text")
+    st.code(str(project_root), language="text")
 
     st.write("Processed data:")
-    st.code(str(PROCESSED_DIR), language="text")
+    st.code(str(processed_dir), language="text")
 
     st.divider()
-    st.write("Issue:")
-    st.code("#16 Streamlit Dashboard Prototype", language="text")
 
-registries, registry_inventory_df = load_notebook7_registries()
+    st.write("Dashboard stage:")
+    st.code("Registry validation layer", language="text")
+
+    st.divider()
+
+    show_metadata = st.toggle(
+        "Show technical metadata",
+        value=True,
+        help="Show source keys, plot keys and filter support flags where available.",
+    )
 
 render_registry_health(registry_inventory_df)
 
 tab_inputs, tab_sections, tab_bundles, tab_components, tab_filters = st.tabs(
     [
-        "Έλεγχος inputs",
+        "Input validation",
         "Sections",
         "Section bundles",
         "Cards & charts",
@@ -502,16 +420,13 @@ tab_inputs, tab_sections, tab_bundles, tab_components, tab_filters = st.tabs(
 )
 
 with tab_inputs:
-    st.subheader("Notebook 7 registry inventory")
-
-    st.dataframe(
-        registry_inventory_df,
-        use_container_width=True,
-        hide_index=True,
-    )
+    render_registry_inventory(registry_inventory_df)
 
 with tab_sections:
-    render_sections_preview(registries)
+    render_sections_preview(
+        registries=registries,
+        show_metadata=show_metadata,
+    )
 
 with tab_bundles:
     render_bundles_preview(registries)
