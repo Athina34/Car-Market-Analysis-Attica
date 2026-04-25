@@ -348,3 +348,50 @@
 - Τα dashboard-ready outputs είναι πλέον διαθέσιμα στα `data/processed/`
 - Τα plots είναι διαθέσιμα στον φάκελο `plots/`
 - Το project είναι έτοιμο για μετάβαση στο επόμενο notebook / επόμενη αναλυτική ενότητα
+
+
+---
+
+
+# Ημερολόγιο Εργασίας: Πτυχιακή Μελέτη
+**Project:** Car-Market-Analysis-Attica
+**Ημερομηνία:** 25 Απριλίου 2026
+
+## Σημερινή Πρόοδος
+- Ξεκίνησε και ολοκληρώθηκε το πρώτο λειτουργικό στάδιο του Streamlit dashboard prototype
+- Δημιουργήθηκε το issue `#16`: `Create Streamlit Dashboard Prototype – Consume Notebook 7 Registries`
+- Δημιουργήθηκε branch εργασίας:
+  - `16-streamlit-dashboard-prototype`
+- Δημιουργήθηκε αρχικό `streamlit_app.py`
+- Το Streamlit app συνδέθηκε επιτυχώς με τα exported registries του Notebook 7 από τον φάκελο `data/processed/`
+- Επιβεβαιώθηκε ότι το app μπορεί να φορτώσει και να παρουσιάσει:
+  - dashboard sections
+  - section bundles
+  - KPI cards registry
+  - charts registry
+  - filter options registry
+  - integration asset inventory
+- Προστέθηκε βασικό validation layer για:
+  - ύπαρξη registry files
+  - δυνατότητα ανάγνωσης των CSVs
+  - έλεγχο ελάχιστων αναμενόμενων στηλών
+- Δημιουργήθηκε modular dashboard package στον φάκελο `src/dashboard/`
+- Προστέθηκαν τα αρχεία:
+  - `src/dashboard/__init__.py`
+  - `src/dashboard/config.py`
+  - `src/dashboard/data_loader.py`
+  - `src/dashboard/styles.py`
+- Το dashboard απέκτησε custom semi-dark executive UI κατάλληλο για παρουσίαση πτυχιακής
+- Καθαρίστηκε το visible UI ώστε να είναι πιο συνεπές και επαγγελματικό
+- Τα βασικά dashboard labels μετατράπηκαν σε αγγλικά για πιο ενιαία παρουσίαση
+- Προστέθηκε sidebar toggle για εμφάνιση / απόκρυψη τεχνικών metadata
+
+## Validation
+Πραγματοποιήθηκαν επιτυχώς οι παρακάτω τοπικοί έλεγχοι:
+
+```powershell
+python -m py_compile streamlit_app.py
+python -m py_compile src/dashboard/config.py
+python -m py_compile src/dashboard/data_loader.py
+python -m py_compile src/dashboard/styles.py
+python -m streamlit run streamlit_app.py
