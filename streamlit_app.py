@@ -24,7 +24,10 @@ from src.dashboard.data_loader import (
     load_notebook7_registries,
     select_existing_columns,
 )
-from src.dashboard.kpi_cards import render_section_kpi_cards
+from src.dashboard.kpi_cards import (
+    get_price_segment_options,
+    render_section_kpi_cards,
+)
 from src.dashboard.styles import apply_custom_theme, render_hero
 
 
@@ -296,11 +299,11 @@ def render_dashboard_kpi_rendering_layer(
     registries: dict[str, pd.DataFrame],
 ) -> None:
     """
-    Renders the first real dashboard layer for Issue #18.
+    Renders the first dashboard KPI layer for Issue #18.
 
-    Σε αυτό το πρώτο increment δεν αφαιρούμε τα validation previews.
-    Προσθέτουμε πραγματικό KPI rendering layer που καταναλώνει
-    το Notebook 7 cards registry και εμφανίζει Streamlit metric cards.
+    Το section selector επιλέγει dashboard section από το Notebook 7
+    sections registry. Αν το section έχει segment-level KPI cards,
+    εμφανίζεται επιπλέον price segment selector.
     """
     sections_df = registries.get("sections")
     cards_df = registries.get("cards")
@@ -329,7 +332,7 @@ def render_dashboard_kpi_rendering_layer(
 
     st.subheader("Dashboard rendering layer")
     st.caption(
-        "Issue #18 first rendering increment: Notebook 7 KPI card registry "
+        "Issue #18 rendering increment: Notebook 7 KPI card registry "
         "mapped to Streamlit metric components."
     )
 
@@ -362,17 +365,52 @@ def render_dashboard_kpi_rendering_layer(
         cards_df["section_id"].astype(str) == selected_section_id
     ].copy()
 
-    st.caption(f"KPI cards found for this section: {len(section_cards_df)}")
+    segment_options = get_price_segment_options(section_cards_df)
+    selected_price_segment = None
+
+    if segment_options:
+        st.markdown("#### Price segment filter")
+
+        segment_select_options = ["ALL"] + segment_options
+
+        # Για segment-level KPI sections, αποφεύγουμε ως default το ALL,
+        # ώστε να μη γεμίζει το dashboard με όλα τα segment cards μαζί.
+        default_segment_index = 1 if len(segment_select_options) > 1 else 0
+
+        selected_price_segment = st.selectbox(
+            "Select price segment",
+            options=segment_select_options,
+            index=default_segment_index,
+            key=f"dashboard_render_price_segment_{selected_section_id}",
+            help=(
+                "Use this filter for segment-level KPI cards. "
+                "Choose ALL only if you want to inspect all segment cards together."
+            ),
+        )
+
+    visible_cards_df = section_cards_df.copy()
+
+    if (
+        selected_price_segment not in (None, "", "ALL")
+        and "price_segment" in visible_cards_df.columns
+    ):
+        visible_cards_df = visible_cards_df.loc[
+            visible_cards_df["price_segment"].astype(str).str.strip()
+            == str(selected_price_segment).strip()
+        ]
+
+    st.caption(f"KPI cards shown for this selection: {len(visible_cards_df)}")
 
     render_section_kpi_cards(
         registries=registries,
         section_id=selected_section_id,
+        price_segment=selected_price_segment,
         cards_per_row=4,
     )
 
-    with st.expander("KPI registry rows used for this section"):
+    with st.expander("KPI registry rows used for this selection"):
         preview_columns = select_existing_columns(
-            section_cards_df,
+            visible_cards_df,
             [
                 "card_order",
                 "card_id",
@@ -388,12 +426,12 @@ def render_dashboard_kpi_rendering_layer(
 
         if preview_columns:
             st.dataframe(
-                section_cards_df[preview_columns],
+                visible_cards_df[preview_columns],
                 width="stretch",
                 hide_index=True,
             )
         else:
-            st.info("No preview columns are available for this section.")
+            st.info("No preview columns are available for this selection.")
 
 
 def render_filter_options_preview(registries: dict[str, pd.DataFrame]) -> None:
