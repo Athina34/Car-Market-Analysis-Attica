@@ -12,6 +12,7 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from src.dashboard.charts import render_section_charts
 from src.dashboard.config import (
     APP_LAYOUT,
     APP_PAGE_ICON,
@@ -295,15 +296,19 @@ def render_cards_and_charts_preview(registries: dict[str, pd.DataFrame]) -> None
             )
 
 
-def render_dashboard_kpi_rendering_layer(
+def render_dashboard_rendering_layer(
     registries: dict[str, pd.DataFrame],
+    processed_dir: Path,
+    plots_dir: Path,
+    show_metadata: bool = False,
 ) -> None:
     """
-    Renders the first dashboard KPI layer for Issue #18.
+    Renders the first dashboard rendering layer for Issue #18.
 
     Το section selector επιλέγει dashboard section από το Notebook 7
     sections registry. Αν το section έχει segment-level KPI cards,
-    εμφανίζεται επιπλέον price segment selector.
+    εμφανίζεται επιπλέον price segment selector. Κάτω από τα KPI cards
+    γίνεται render και το αντίστοιχο chart section.
     """
     sections_df = registries.get("sections")
     cards_df = registries.get("cards")
@@ -332,8 +337,8 @@ def render_dashboard_kpi_rendering_layer(
 
     st.subheader("Dashboard rendering layer")
     st.caption(
-        "Issue #18 rendering increment: Notebook 7 KPI card registry "
-        "mapped to Streamlit metric components."
+        "Issue #18 rendering increment: Notebook 7 KPI card and chart registries "
+        "mapped to Streamlit dashboard components."
     )
 
     selected_section_id = st.selectbox(
@@ -433,6 +438,16 @@ def render_dashboard_kpi_rendering_layer(
         else:
             st.info("No preview columns are available for this selection.")
 
+    st.markdown("### Charts")
+
+    render_section_charts(
+        registries=registries,
+        section_id=selected_section_id,
+        processed_dir=processed_dir,
+        plots_dir=plots_dir,
+        show_metadata=show_metadata,
+    )
+
 
 def render_filter_options_preview(registries: dict[str, pd.DataFrame]) -> None:
     """
@@ -510,6 +525,7 @@ apply_custom_theme()
 
 project_root = find_project_root(Path(__file__).resolve().parent)
 processed_dir = get_processed_dir(project_root)
+plots_dir = project_root / "plots"
 registry_fingerprint = build_registry_fingerprint(processed_dir)
 
 registries, registry_inventory_df = load_cached_notebook7_registries(
@@ -524,8 +540,9 @@ st.markdown(
     <div class="section-note">
     This prototype now extends the Notebook 7 registry validation layer into
     an initial dashboard rendering layer. KPI cards are rendered from
-    <code>notebook7_dashboard_cards_registry.csv</code>, while the original
-    registry validation previews remain available for technical review.
+    <code>notebook7_dashboard_cards_registry.csv</code>, while charts are
+    rendered from <code>notebook7_dashboard_charts_registry.csv</code> with
+    fallback behavior for missing plot assets or source tables.
     </div>
     """,
     unsafe_allow_html=True,
@@ -540,10 +557,13 @@ with st.sidebar:
     st.write("Processed data:")
     st.code(str(processed_dir), language="text")
 
+    st.write("Plots:")
+    st.code(str(plots_dir), language="text")
+
     st.divider()
 
     st.write("Dashboard stage:")
-    st.code("KPI rendering layer", language="text")
+    st.code("KPI and chart rendering layer", language="text")
 
     st.divider()
 
@@ -567,7 +587,12 @@ tab_dashboard, tab_inputs, tab_sections, tab_bundles, tab_components, tab_filter
 )
 
 with tab_dashboard:
-    render_dashboard_kpi_rendering_layer(registries)
+    render_dashboard_rendering_layer(
+        registries=registries,
+        processed_dir=processed_dir,
+        plots_dir=plots_dir,
+        show_metadata=show_metadata,
+    )
 
 with tab_inputs:
     render_registry_inventory(registry_inventory_df)
