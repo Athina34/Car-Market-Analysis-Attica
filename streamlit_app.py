@@ -1,6 +1,6 @@
 # streamlit_app.py
 # ============================================================
-# Streamlit Dashboard Prototype
+# Streamlit Dashboard Prototype / Rendering Layer
 # Car Market Analysis Attica
 # Consume Notebook 7 Registries
 # ============================================================
@@ -12,6 +12,7 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from src.dashboard.charts import render_section_charts
 from src.dashboard.config import (
     APP_LAYOUT,
     APP_PAGE_ICON,
@@ -23,6 +24,10 @@ from src.dashboard.data_loader import (
     get_processed_dir,
     load_notebook7_registries,
     select_existing_columns,
+)
+from src.dashboard.kpi_cards import (
+    get_price_segment_options,
+    render_section_kpi_cards,
 )
 from src.dashboard.styles import apply_custom_theme, render_hero
 
@@ -200,7 +205,8 @@ def render_bundles_preview(registries: dict[str, pd.DataFrame]) -> None:
 
     st.subheader("Section bundles")
     st.caption(
-        "Streamlit-ready mapping between dashboard sections, KPI cards, charts and source assets."
+        "Streamlit-ready mapping between dashboard sections, "
+        "KPI cards, charts and source assets."
     )
 
     preview_columns = select_existing_columns(
@@ -227,7 +233,7 @@ def render_bundles_preview(registries: dict[str, pd.DataFrame]) -> None:
 
 def render_cards_and_charts_preview(registries: dict[str, pd.DataFrame]) -> None:
     """
-    Renders a first summary of KPI cards and chart registries.
+    Renders a summary of KPI cards and chart registries.
     """
     cards_df = registries.get("cards")
     charts_df = registries.get("charts")
@@ -249,6 +255,7 @@ def render_cards_and_charts_preview(registries: dict[str, pd.DataFrame]) -> None
                     "card_id",
                     "section_id",
                     "card_scope",
+                    "price_segment",
                     "kpi_label_el",
                     "display_value",
                     "source_table",
@@ -287,6 +294,159 @@ def render_cards_and_charts_preview(registries: dict[str, pd.DataFrame]) -> None
                 width="stretch",
                 hide_index=True,
             )
+
+
+def render_dashboard_rendering_layer(
+    registries: dict[str, pd.DataFrame],
+    processed_dir: Path,
+    plots_dir: Path,
+    show_metadata: bool = False,
+) -> None:
+    """
+    Renders the first dashboard rendering layer for Issue #18.
+
+    Το section selector επιλέγει dashboard section από το Notebook 7
+    sections registry. Αν το section έχει segment-level KPI cards,
+    εμφανίζεται επιπλέον price segment selector. Κάτω από τα KPI cards
+    γίνεται render και το αντίστοιχο chart section.
+    """
+    sections_df = registries.get("sections")
+    cards_df = registries.get("cards")
+
+    if sections_df is None or sections_df.empty:
+        st.info("No sections registry is available for dashboard rendering.")
+        return
+
+    if cards_df is None or cards_df.empty:
+        st.info("No KPI cards registry is available for dashboard rendering.")
+        return
+
+    if "section_id" not in sections_df.columns:
+        st.warning("The sections registry does not contain `section_id`.")
+        return
+
+    sort_columns = select_existing_columns(sections_df, ["section_order", "section_id"])
+    if sort_columns:
+        sections_df = sections_df.sort_values(sort_columns).reset_index(drop=True)
+
+    section_options = sections_df["section_id"].astype(str).tolist()
+
+    if not section_options:
+        st.info("No dashboard sections were found.")
+        return
+
+    st.subheader("Dashboard rendering layer")
+    st.caption(
+        "Issue #18 rendering increment: Notebook 7 KPI card and chart registries "
+        "mapped to Streamlit dashboard components."
+    )
+
+    selected_section_id = st.selectbox(
+        "Select dashboard section",
+        options=section_options,
+        key="dashboard_render_section_id",
+    )
+
+    selected_section = sections_df.loc[
+        sections_df["section_id"].astype(str) == selected_section_id
+    ].iloc[0]
+
+    section_title = selected_section.get("section_title_el", selected_section_id)
+    section_description = selected_section.get("section_description_el", "")
+
+    st.markdown(f"### {section_title}")
+
+    if pd.notna(section_description) and str(section_description).strip():
+        st.markdown(
+            f"""
+            <div class="section-note">
+            {section_description}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    section_cards_df = cards_df.loc[
+        cards_df["section_id"].astype(str) == selected_section_id
+    ].copy()
+
+    segment_options = get_price_segment_options(section_cards_df)
+    selected_price_segment = None
+
+    if segment_options:
+        st.markdown("#### Price segment filter")
+
+        segment_select_options = ["ALL"] + segment_options
+
+        # Για segment-level KPI sections, αποφεύγουμε ως default το ALL,
+        # ώστε να μη γεμίζει το dashboard με όλα τα segment cards μαζί.
+        default_segment_index = 1 if len(segment_select_options) > 1 else 0
+
+        selected_price_segment = st.selectbox(
+            "Select price segment",
+            options=segment_select_options,
+            index=default_segment_index,
+            key=f"dashboard_render_price_segment_{selected_section_id}",
+            help=(
+                "Use this filter for segment-level KPI cards. "
+                "Choose ALL only if you want to inspect all segment cards together."
+            ),
+        )
+
+    visible_cards_df = section_cards_df.copy()
+
+    if (
+        selected_price_segment not in (None, "", "ALL")
+        and "price_segment" in visible_cards_df.columns
+    ):
+        visible_cards_df = visible_cards_df.loc[
+            visible_cards_df["price_segment"].astype(str).str.strip()
+            == str(selected_price_segment).strip()
+        ]
+
+    st.caption(f"KPI cards shown for this selection: {len(visible_cards_df)}")
+
+    render_section_kpi_cards(
+        registries=registries,
+        section_id=selected_section_id,
+        price_segment=selected_price_segment,
+        cards_per_row=4,
+    )
+
+    with st.expander("KPI registry rows used for this selection"):
+        preview_columns = select_existing_columns(
+            visible_cards_df,
+            [
+                "card_order",
+                "card_id",
+                "section_id",
+                "card_scope",
+                "price_segment",
+                "kpi_label_el",
+                "display_value",
+                "value_type",
+                "source_table",
+            ],
+        )
+
+        if preview_columns:
+            st.dataframe(
+                visible_cards_df[preview_columns],
+                width="stretch",
+                hide_index=True,
+            )
+        else:
+            st.info("No preview columns are available for this selection.")
+
+    st.markdown("### Charts")
+
+    render_section_charts(
+        registries=registries,
+        section_id=selected_section_id,
+        processed_dir=processed_dir,
+        plots_dir=plots_dir,
+        show_metadata=show_metadata,
+    )
 
 
 def render_filter_options_preview(registries: dict[str, pd.DataFrame]) -> None:
@@ -365,6 +525,7 @@ apply_custom_theme()
 
 project_root = find_project_root(Path(__file__).resolve().parent)
 processed_dir = get_processed_dir(project_root)
+plots_dir = project_root / "plots"
 registry_fingerprint = build_registry_fingerprint(processed_dir)
 
 registries, registry_inventory_df = load_cached_notebook7_registries(
@@ -377,9 +538,11 @@ render_hero()
 st.markdown(
     """
     <div class="section-note">
-    This prototype does not reproduce the notebook analysis. It validates that
-    the application can consistently consume the exported Notebook 7 registries
-    from <code>data/processed/</code>.
+    This prototype now extends the Notebook 7 registry validation layer into
+    an initial dashboard rendering layer. KPI cards are rendered from
+    <code>notebook7_dashboard_cards_registry.csv</code>, while charts are
+    rendered from <code>notebook7_dashboard_charts_registry.csv</code> with
+    fallback behavior for missing plot assets or source tables.
     </div>
     """,
     unsafe_allow_html=True,
@@ -394,10 +557,13 @@ with st.sidebar:
     st.write("Processed data:")
     st.code(str(processed_dir), language="text")
 
+    st.write("Plots:")
+    st.code(str(plots_dir), language="text")
+
     st.divider()
 
     st.write("Dashboard stage:")
-    st.code("Registry validation layer", language="text")
+    st.code("KPI and chart rendering layer", language="text")
 
     st.divider()
 
@@ -409,8 +575,9 @@ with st.sidebar:
 
 render_registry_health(registry_inventory_df)
 
-tab_inputs, tab_sections, tab_bundles, tab_components, tab_filters = st.tabs(
+tab_dashboard, tab_inputs, tab_sections, tab_bundles, tab_components, tab_filters = st.tabs(
     [
+        "Dashboard render",
         "Input validation",
         "Sections",
         "Section bundles",
@@ -418,6 +585,14 @@ tab_inputs, tab_sections, tab_bundles, tab_components, tab_filters = st.tabs(
         "Filters",
     ]
 )
+
+with tab_dashboard:
+    render_dashboard_rendering_layer(
+        registries=registries,
+        processed_dir=processed_dir,
+        plots_dir=plots_dir,
+        show_metadata=show_metadata,
+    )
 
 with tab_inputs:
     render_registry_inventory(registry_inventory_df)
