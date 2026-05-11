@@ -395,3 +395,32 @@ python -m py_compile src/dashboard/config.py
 python -m py_compile src/dashboard/data_loader.py
 python -m py_compile src/dashboard/styles.py
 python -m streamlit run streamlit_app.py
+
+
+---
+
+
+# Ημερολόγιο Εργασίας: Πτυχιακή Μελέτη
+**Project:** Car-Market-Analysis-Attica
+**Ημερομηνία:** 11 Μαΐου 2026
+
+## Σημερινή Πρόοδος
+- Ολοκληρώθηκε το issue `#18`: `Implement Streamlit KPI Cards and Chart Rendering from Notebook 7 Registries`.
+- Το υπάρχον Streamlit app εξελίχθηκε από registry preview / validation prototype σε πρώτο πραγματικό dashboard rendering layer.
+- Υλοποιήθηκε reusable KPI card rendering logic στο `src/dashboard/kpi_cards.py`.
+- Έγινε mapping του `notebook7_dashboard_cards_registry.csv` σε Streamlit KPI metric cards.
+- Προστέθηκε section-level KPI card layout για τις βασικές ενότητες του dashboard.
+- Προστέθηκε price segment selector για segment-level KPI sections.
+- Υλοποιήθηκε reusable chart rendering logic στο `src/dashboard/charts.py`.
+- Έγινε mapping του `notebook7_dashboard_charts_registry.csv` σε dashboard chart sections.
+- Ενσωματώθηκε native Matplotlib chart rendering από dashboard-ready source tables, ώστε τα labels των γραφημάτων να παραμένουν εντός του plot frame.
+- Προστέθηκε fallback behavior για περιπτώσεις όπου λείπει plot asset ή source table.
+- Διατηρήθηκαν τα υπάρχοντα registry validation previews για τεχνικό έλεγχο.
+- Το dashboard rendering layer ενσωματώθηκε στο υπάρχον `streamlit_app.py` χωρίς να χαλάσει το working app.
+
+## Validation
+Πραγματοποιήθηκαν επιτυχώς οι παρακάτω τοπικοί έλεγχοι:
+
+```powershell
+python -m py_compile streamlit_app.py src\dashboard\config.py src\dashboard\data_loader.py src\dashboard\styles.py src\dashboard\kpi_cards.py src\dashboard\charts.py
+streamlit run streamlit_app.py
